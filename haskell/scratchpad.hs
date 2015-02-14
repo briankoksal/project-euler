@@ -4,6 +4,16 @@ add x y                 =  x + y
 inc                    = add 1
 
 
+describeList :: [a] -> String  
+describeList xs = "The list is " ++ case xs of [] -> "empty."  
+                                               [x] -> "a singleton list."   
+                                               xs -> "a longer list."  
+
+describeList1 :: [a] -> String  
+describeList1 xs = "The list is " ++ what xs  
+    where what [] = "empty."  
+          what [x] = "a singleton list."  
+          what xs = "a longer list."                                                
 
 -- Compute the sum of the integers from 1 to n.
 sumtorial :: Integer -> Integer
@@ -122,4 +132,50 @@ chain 1 = [1]
 chain n  
     | even n =  n:chain (n `div` 2)  
     | odd n  =  n:chain (n*3 + 1)   
+
+numLongChains1 :: Int  
+numLongChains1 = length (filter isLong (map chain [1..100]))  
+    where isLong xs = length xs > 15  
+
+numLongChains2 :: Int  
+numLongChains2 = length (filter (\xs -> length xs > 15) (map chain [1..100]))  
+
+flip1 :: (a -> b -> c) -> b -> a -> c  
+flip1 f = \x y -> f y x  
+
+sum' :: (Num a) => [a] -> a  
+sum' xs = foldl (\acc x -> acc + x) 0 xs  
+
+elem' :: (Eq a) => a -> [a] -> Bool  
+elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys  
+
+maximum' :: (Ord a) => [a] -> a  
+maximum' = foldr1 (\x acc -> if x > acc then x else acc)  
+  
+reverse' :: [a] -> [a]  
+reverse' = foldl (\acc  x -> x : acc) []  
+  
+product' :: (Num a) => [a] -> a  
+product' = foldr1 (*)  
+  
+filter' :: (a -> Bool) -> [a] -> [a]  
+filter' p = foldr (\x acc -> if p x then x : acc else acc) []  
+  
+head' :: [a] -> a  
+head' = foldr1 (\x _ -> x)  
+  
+last' :: [a] -> a  
+last' = foldl1 (\_ x -> x) 
+
+head' :: [a] -> a  
+head' [] = error "No head for empty lists!"  
+head' (x:_) = x  
+
+
+--temp work
+--fib :: (Integral a) => [a] -> [a]
+fib [] = fib ([1] :2)
+fib xs = xs ++ ((xs!!((length xs)-1)) + (xs!!((length xs)-2)): [])
+
+
 
