@@ -167,15 +167,21 @@ head' = foldr1 (\x _ -> x)
 last' :: [a] -> a  
 last' = foldl1 (\_ x -> x) 
 
-head' :: [a] -> a  
-head' [] = error "No head for empty lists!"  
-head' (x:_) = x  
+head'1 :: [a] -> a  
+head'1 [] = error "No head for empty lists!"  
+head'1 (x:_) = x  
 
 
---temp work
---fib :: (Integral a) => [a] -> [a]
-fib [] = fib ([1] :2)
-fib xs = xs ++ ((xs!!((length xs)-1)) + (xs!!((length xs)-2)): [])
+sum1 :: (Num a) => [a] -> a  
+sum1 [] = 0  
+sum1 (x:xs) = x + sum1 xs  
 
+bmiTell :: (RealFloat a) => a -> a -> String  
+bmiTell weight height  
+    | bmi <= 18.5 = "You're underweight, you emo, you!"  
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"  
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"  
+    | otherwise   = "You're a whale, congratulations!"  
+    where bmi = weight / height ^ 2  
 
 
