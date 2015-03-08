@@ -1,3 +1,7 @@
+import Data.List
+import Data.Char
+
+
 --Project Euler Problem #1	(Multiples of 3 and 5)
 
 --If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -32,10 +36,21 @@ fib list
      where new = (list!!0 + list!!1): list 
 
 euler2 :: (Integral a) => a
-
 euler2 = sum (filter even (fib []))
 
 --Project Euler Problem #3 (Largest prime factor)
 
 --The prime factors of 13195 are 5, 7, 13 and 29.
 --What is the largest prime factor of the number 600851475143 ?
+
+primes = sieve [2..] 
+  where sieve (p:xs) = 
+          p : sieve [x | x <- xs, x `mod` p /= 0]
+          
+isFactor :: (Integral a) => a -> a -> Bool
+isFactor x p = x `mod` p == 0
+
+
+euler3 = last $ Data.List.filter (isFactor 600851475143) $ take 1000 primes  
+
+          

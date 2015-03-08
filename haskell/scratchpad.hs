@@ -1,3 +1,6 @@
+import Data.List
+import Data.Char
+
 add                     :: Integer -> Integer -> Integer
 add x y                 =  x + y
 
@@ -119,8 +122,8 @@ allEqual x y z = x == y && y == z
 applyAndConcat :: (String -> String) -> (String -> String) -> String -> String
 applyAndConcat f g x = (f x) ++ (g x)
 
-(.) :: (b -> c) -> (a -> b) -> (a -> c)
-(.) f g = (\x -> f (g x)) 
+--(.) :: (b -> c) -> (a -> b) -> (a -> c)
+--(.) f g = (\x -> f (g x)) 
 -- alternatively
 --f . g = (\x -> f (g x))
 
@@ -184,4 +187,52 @@ bmiTell weight height
     | otherwise   = "You're a whale, congratulations!"  
     where bmi = weight / height ^ 2  
 
+elem1' :: (Eq a) => a -> [a] -> Bool  
+elem1' y ys = foldl (\acc x -> if x == y then True else acc) False ys
+
+
+
+--prime :: a -> [a]
+--prime  
+
+--is it divisible by x
+--is it a prime - ?  (divisible by 1 and itself)
+
+--divisible :: (Integral a) => a -> a -> Bool  
+--divisible x y 
+--  | x `mod` y == 0 = True
+--  | otherwise =  False
+
+-----input is max prime
+--isPrime :: (Integral a) => a -> Bool
+--isPrime h
+--  | list = foldl (\acc x -> if x == h then True else acc) False list
+--  | otherwise =  False
+--   where list = [2..h]
+
+--is even?
+
+primes = sieve [2..] 
+  where sieve (p:xs) = 
+          p : sieve [x | x <- xs, x `mod` p /= 0]
+
+
+search :: (Eq a) => [a] -> [a] -> Bool  
+search needle haystack =   
+    let nlen = length needle  
+    in  foldl (\acc x -> if take nlen x == needle then True else acc) False (tails haystack)
+    
+    
+encode :: Int -> String -> String  
+encode shift msg = 
+    let ords = map ord msg  
+        shifted = map (+ shift) ords  
+    in  map chr shifted  
+    
+decode :: Int -> String -> String  
+decode shift msg = encode (negate shift) msg  
+
+
+findKey :: (Eq k) => k -> [(k,v)] -> v  
+findKey key xs = snd . head . filter (\(k,v) -> key == k) $ xs  
 
