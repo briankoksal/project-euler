@@ -53,4 +53,13 @@ isFactor x p = x `mod` p == 0
 
 euler3 = last $ Data.List.filter (isFactor 600851475143) $ take 1000 primes  
 
-          
+--Project Euler Problem #4 (Largest palindrome product)          
+
+--A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+--Find the largest palindrome made from the product of two 3-digit numbers.
+
+threeDigitMutiples = 
+
+isPalidrome
+
+euler4 = 
